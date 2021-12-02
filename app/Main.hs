@@ -325,9 +325,9 @@ drawUI st =
       B.fill ' '
 
     searchBlock =
-      ((htitle "Type: " <+> editor TypeSearch (st ^. stEditType)) <+> time (st ^. stTime))
+      ((htitle "function" <+> editor TypeSearch (st ^. stEditType)))
       <=>
-      (htitle "Text: " <+> editor TextSearch (st ^. stEditText))
+      (htitle "package" <+> editor TextSearch (st ^. stEditText))
 
     htitle t =
       B.hLimit 20 $
@@ -341,12 +341,6 @@ drawUI st =
     editor n e =
       B.vLimit 1 $
       BE.renderEditor (B.txt . Txt.unlines) (BF.focusGetCurrent (st ^. stFocus) == Just n) e
-
-    time t =
-      B.padLeft (B.Pad 1) $
-      B.hLimit 20 $
-      B.withAttr "time" $
-      B.str (Tm.formatTime Tm.defaultTimeLocale "%H-%M-%S" t)
 
     getSelectedDetail fn =
       case BL.listSelectedElement $ st ^. stResultsList of
